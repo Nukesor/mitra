@@ -1,7 +1,6 @@
-from __future__ import print_function
 import sys
 from mitra import app
-
+import mitra.views
 
 if __name__ == '__main__':
     app.run(debug=True)
