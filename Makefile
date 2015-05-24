@@ -3,8 +3,9 @@
 run:
 	./scripts/run.sh
 
-setup:
-	./scripts/venvsetup.sh
+update:
+	./scripts/update.sh
 
-install: 
-	./scripts/install.sh
+setup: 
+	./scripts/setup.sh
+	./scripts/update.sh

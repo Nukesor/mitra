@@ -1,0 +1,17 @@
+{
+  "name": "mitra",
+  "version": "0.1.0",
+  "homepage": "https://github.com/nukesor/mitra",
+  "authors": [
+    "Arne Beer <arne@twobeer.de>"
+  ],
+  "description": "A neat financial management tool",
+  "keywords": [
+    "financial",
+    "management"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "react": "~0.13.3"
+  }
+}

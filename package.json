@@ -1,0 +1,30 @@
+{
+  "name": "mitra",
+  "version": "0.1.0",
+  "description": "A neat financial management tool",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"No Test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nukesor/mitra.git"
+  },
+  "keywords": [
+    "financial",
+    "management",
+    "webapp"
+  ],
+  "author": "Arne Beer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nukesor/mitra/issues"
+  },
+  "homepage": "https://github.com/nukesor/mitra#readme",
+  "dependencies": {
+    "bower": "^1.4.1"
+  }
+}
