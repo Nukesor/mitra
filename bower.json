@@ -10,6 +10,13 @@
     "financial",
     "management"
   ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "license": "MIT",
   "dependencies": {
     "react": "~0.13.3"
