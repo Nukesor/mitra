@@ -9,3 +9,6 @@ update:
 setup: 
 	./scripts/setup.sh
 	./scripts/update.sh
+
+arch-install:
+	sudo pacman -Sy --noconfirm python-pip python-virtualenv npm
