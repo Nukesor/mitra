@@ -1,4 +1,7 @@
 venv
-*__pycache__*
+build
 node_modules
 mitra/static/bower
+mitra/static/js
+
+*__pycache__*
