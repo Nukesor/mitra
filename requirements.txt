@@ -4,4 +4,8 @@ flask-babel
 flask-sqlalchemy
 flask-wtf
 flask-migrate
+flask-jwt
+flask-classy
+flask-marshmallow
+uwsgi
 sadisplay
