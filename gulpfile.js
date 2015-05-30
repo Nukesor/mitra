@@ -2,8 +2,9 @@
 var gulp = require('gulp'); 
 
 // Include Plugins
-var shell  = require('gulp-shell');
+var less = require('gulp-less');
 var react = require('gulp-react');
+var shell  = require('gulp-shell');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -11,14 +12,23 @@ var sourcemaps = require('gulp-sourcemaps');
 
 
 // Default Task
-gulp.task('default', ['compileJSX', 'buildjs-dev', 'watch']);
+gulp.task('default', ['less', 'compileJSX', 'buildjs-dev', 'watch']);
 
 // Build Task
-gulp.task('build', ['compileJSX', 'buildjs']);
+gulp.task('build', ['less', 'compileJSX', 'buildjs']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('client/**/*.jsx', ['compileJSX', 'buildjs-dev']);
+    gulp.watch('client/**/*.jsx', ['compileJSX']);
+    gulp.watch('build/**/*.js', ['buildjs-dev']);
+    gulp.watch('less/**/*.less', ['less']);
+});
+
+// 
+gulp.task('less', function () {
+  return gulp.src('less/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('mitra/static/css/'));
 });
 
 // Deploy jsx to js

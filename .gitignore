@@ -1,6 +1,7 @@
 venv
 build
 node_modules
+mitra/static/css
 mitra/static/bower
 mitra/static/js
 
