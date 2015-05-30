@@ -12,10 +12,11 @@ var App = React.createClass({
 });
 
 var routes = (
-  <Route handler={App} path="/">
-    <Route path="login" handler={Login}/>
-    <Route path="overview" handler={Overview}/>
-  </Route>
+    <Route handler={App} path="/">
+        <Route path="/login" handler={Login}/>
+        <Route path="/overview" handler={Overview}/>
+        <Route path="/impressum" handler={Impressum}/>
+    </Route>
 );
 
 ReactRouter.run(routes, function(Handler) {
