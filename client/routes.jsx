@@ -4,7 +4,7 @@ var RouteHandler = ReactRouter.RouteHandler;
 var App = React.createClass({
     render: function() {
         return (
-            <div>
+            <div className="mainContainer">
                 <RouteHandler/>
             </div>
         )
@@ -19,7 +19,7 @@ var routes = (
     </Route>
 );
 
-ReactRouter.run(routes, function(Handler) {
+ReactRouter.run(routes, ReactRouter.HistoryLocation, function(Handler) {
     React.render(<Handler/>, document.body);
 });
 

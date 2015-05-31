@@ -1,0 +1,36 @@
+# Debug mode, set to False in productive environment
+DEBUG = True
+
+# Secret key, required for cookies etc.
+SECRET_KEY = "change me!!!"
+
+# Select which authentication method to use.
+LOGIN_PROVIDERS = ["password", "ldap"]
+
+# Used only if "password" in LOGIN_PROVIDERS
+REGISTRATIONS_ENABLED = True
+
+# Enable group features (create/edit)
+GROUPS_ENABLED = True
+
+# Sentry settings
+# The Sentry DSN, if it is not set or False Sentry is disabled
+# SENTRY_DSN = "https://user:password@sentry.host.tld/X"
+
+#MAIL_SERVER = None
+#MAIL_PORT = None
+#MAIL_USE_TLS = False
+#MAIL_USE_SSL = False
+#MAIL_DEBUG = True
+#MAIL_USERNAME = None
+#MAIL_PASSWORD = None
+#MAIL_DEFAULT_SENDER = "Dudel <dudel@%s>" % MAIL_SERVER
+#TESTING = True
+
+# Timezone
+DEFAULT_TIMEZONE = "Europe/Berlin"
+
+# Locale
+BABEL_DEFAULT_LOCALE = "en"
+BABEL_DEFAULT_TIMEZONE = DEFAULT_TIMEZONE
+
