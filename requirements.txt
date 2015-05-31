@@ -7,5 +7,5 @@ flask-babel
 flask-migrate
 flask-classy
 flask-sqlalchemy
-marshmallow
+flask-marshmallow
 marshmallow-sqlalchemy
