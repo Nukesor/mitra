@@ -16,7 +16,12 @@ var Login = React.createClass({
                 password:this.state.password
             }),
             success: function(data){
-                console.log(data);
+                if (data.username){
+                    console.log(data.username[0]);
+                }
+                if (data.password){
+                    console.log(data.password[0]);
+                }
             }
         });
     },

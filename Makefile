@@ -10,6 +10,9 @@ setup:
 	./scripts/setup.sh
 	./scripts/update.sh
 
+init-db: 
+	./scripts/init-db.sh
+
 arch-install:
 	sudo pacman -Sy --noconfirm python-pip python-virtualenv npm
 

@@ -1,1 +1,1 @@
-from mitra.api import registration
+from mitra.api import account
