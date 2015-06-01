@@ -20,13 +20,6 @@ var Login = React.createClass({
             }
         });
     },
-    handleChange: function(field, e) {
-        console.log(field);
-        console.log(e);
-        var nextState = this.state;
-        nextState[field] = e.target.checked;
-        this.setState(nextState);
-    },
     render: function() {
         return (
             <div className="loginContainer"> 
