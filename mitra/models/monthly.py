@@ -2,7 +2,7 @@ from mitra import db
 
 class Monthly(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.String(120), db.ForeignKey('category.name'))
+    category_name = db.Column(db.String(120), db.ForeignKey('category.name'))
     userid = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     name = db.Column(db.String(120))
@@ -12,7 +12,7 @@ class Monthly(db.Model):
     def __init__(self, id, userid, category, name, begin, amount):
         self.id = id
         self.userid = userid
-        self.category = category
+        self.category_name = category
 
         self.name = name
         self.begin = begin

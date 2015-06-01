@@ -7,7 +7,7 @@ from mitra.models import *
 db.drop_all()
 db.create_all()
 
-user = User('admin', 'arne@twobeer.de', 'hunter2')
+user = User('admin', 'hunter2', 'arne@twobeer.de')
 db.session.add(user)
 db.session.commit()
 

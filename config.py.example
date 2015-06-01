@@ -13,6 +13,12 @@ REGISTRATIONS_ENABLED = True
 # Enable group features (create/edit)
 GROUPS_ENABLED = True
 
+# SQL Alchemy for development
+SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/test.db"
+# SQL Alchemy for production
+#SQLALCHEMY_DATABASE_URI = postgresql://admin:hunter2@localhost/mitra
+
+
 # Sentry settings
 # The Sentry DSN, if it is not set or False Sentry is disabled
 # SENTRY_DSN = "https://user:password@sentry.host.tld/X"
