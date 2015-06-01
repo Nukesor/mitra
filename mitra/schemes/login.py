@@ -1,5 +1,6 @@
 from mitra import ma
 from marshmallow import Schema,fields
+from marshmallow.exceptions import ValidationError
 
 def username_length(username):
     if type(username) is str:

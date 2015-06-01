@@ -1,41 +1,46 @@
 var Login = React.createClass({
+    mixins: [React.addons.LinkedStateMixin],
     getInitialState: function(){
         return {
-            username: true,
-            password: true
-        }
+            username: 'Username',
+            password: 'Password'
+        };
     },
     handleSubmit: function() {
         $.ajax({
             url: '/_login',
             contentType: 'application/json',
-            data: {username:name,password:passwd},
+            method:'POST',
+            data: JSON.stringify({
+                username:this.state.username,
+                password:this.state.password
+            }),
             success: function(data){
-                console.log(success);
+                console.log(data);
             }
-        })
+        });
     },
     handleChange: function(field, e) {
-        console.log(field)
-        console.log(e)
-        var nextState = this.state
-        nextState[field] = e.target.checked
-        this.setState(nextState)
+        console.log(field);
+        console.log(e);
+        var nextState = this.state;
+        nextState[field] = e.target.checked;
+        this.setState(nextState);
     },
     render: function() {
         return (
             <div className="loginContainer"> 
                 <form className="loginWindow">
                     <div> 
-                        <label htmlFor="username">Username or Email</label> 
-                        <input onChange={this.handleChange.bind(this,"username")} size="20" type="text"></input>
+                        <label htmlFor="username"> Username or Email </label> 
+                        <input valueLink={this.linkState('username')} type="text"></input>
                     </div>
                     <div> 
                         <label htmlFor="password">Password</label> 
-                        <input onChange={this.handleChange.bind(this,"password")} id="password" name="password" size="20" type="text"></input>
+                        <input valueLink={this.linkState('password')} type="text"></input>
                     </div>
                 </form>
-                <button form="loginWindow" value="Submit" onClick={this.authenticate} >Shit yo</button>
+                <button form="loginWindow" value="Submit" onClick={this.handleSubmit} >Shit yo</button>
             </div>
         )
     }
