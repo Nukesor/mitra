@@ -2,7 +2,7 @@ from flask import Flask,jsonify,request,redirect,url_for
 from flask.ext.classy import FlaskView, route
 from flask.ext.login import login_user
 
-from mitra import app,db,login_manager
+from mitra import app,db,lm
 from mitra.models.user import User
 from mitra.schemes.login import LoginScheme
 
@@ -15,8 +15,8 @@ def Login():
         user = User.query.filter_by(username=parsed['username']).first()
         if user:
             if user.checkPassword(parsed['password']):
-                login_user(user.id)
-                return redirect(flask.url_for('account'))
+                login_user(user)
+                return jsonify(logged_in=True)
             else:
                 return jsonify(password="p")
         else:

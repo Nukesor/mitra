@@ -9,15 +9,15 @@ app.config.from_pyfile("../config.py", silent=True)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+lm = LoginManager()
+lm.init_app(app)
 
 @app.route('/', defaults={'path':''})
 @app.route('/<path:path>')
 def Index(path):
     return render_template('index.html')
 
-@login_manager.user_loader
+@lm.user_loader
 def load_user(userid):
     return User.get(userid)
 

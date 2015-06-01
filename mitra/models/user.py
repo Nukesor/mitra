@@ -6,9 +6,6 @@ class User(db.Model):
     username = db.Column(db.String(40))
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(40))
-    is_authenticated = db.Column(db.Integer)
-    is_active = db.Column(db.Integer)
-    is_anonymous = db.Column(db.Integer)
 
     categories = db.relationship('Category', backref='user', lazy='dynamic')
     entries = db.relationship('Entry', backref='user', lazy='dynamic')
@@ -19,12 +16,22 @@ class User(db.Model):
         self.email = email
         self.setPassword(password)
 
-    def get_id(self):
-        return user.id
-
     def setPassword(self, password):
         self.password = generate_password_hash(password)
 
     def checkPassword(self, password):
         return check_password_hash(self.password, password)
+
+    def is_authenticated():
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous():
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
 
