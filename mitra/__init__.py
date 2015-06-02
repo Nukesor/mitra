@@ -17,10 +17,6 @@ lm.init_app(app)
 def Index(path):
     return render_template('index.html')
 
-@lm.user_loader
-def load_user(userid):
-    return User.get(userid)
-
 import mitra.models
 import mitra.api
 

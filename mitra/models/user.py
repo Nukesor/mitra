@@ -1,4 +1,4 @@
-from mitra import db
+from mitra import db,lm
 from werkzeug.security import generate_password_hash,check_password_hash
 
 class User(db.Model):
@@ -34,4 +34,8 @@ class User(db.Model):
     def get_id(self):
         return str(self.id)
 
+
+@lm.user_loader
+def load_user(userid):
+    return User.query.filter_by(id=userid).first()
 

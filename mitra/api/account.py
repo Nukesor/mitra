@@ -25,13 +25,24 @@ def Login():
     else:
         return jsonify(errors)
 
-@app.route('/_registration', methods=['PUT', 'POST'])
-def Registration():
+@app.route('/_register', methods=['PUT', 'POST'])
+def Register():
     parsed = request.get_json()
     errors = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})
 
-    if len(errors) == 0:
-        return jsonify(logged_in=True)
-    else:
-        return jsonify(errors)
+    user = User.query.filter_by(email=parsed['email'])
+    euser = User.query.filter_by(username=parsed['username'])
+    # Elegant way for user or email checking
+    if not user and not euser:
+        if len(errors) == 0:
+            user = User(parsed['username'], parsed['password'], parsed['email'])
+            if user:
+                db.session.add(user)
+                db.session.commit()
+                return jsonify(registered=True)
+            else:
+                return jsonify(error="Oups. Something went wrong.")
+
+        else:
+            return jsonify(errors)
 
