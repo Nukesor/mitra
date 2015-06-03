@@ -19,21 +19,21 @@ gulp.task('build', ['less', 'compileJSX', 'buildjs']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('client/**/*.jsx', ['compileJSX']);
+    gulp.watch('client/jsx/**/*.jsx', ['compileJSX']);
     gulp.watch('build/**/*.js', ['buildjs-dev']);
-    gulp.watch('less/**/*.less', ['less']);
+    gulp.watch('client/less/**/*.less', ['less']);
 });
 
 // 
 gulp.task('less', function () {
-  return gulp.src('less/**/*.less')
+  return gulp.src('client/less/**/*.less')
     .pipe(less())
     .pipe(gulp.dest('mitra/static/css/'));
 });
 
 // Deploy jsx to js
 gulp.task('compileJSX', function() {
-    return gulp.src('client/**/*.jsx')
+    return gulp.src('client/jsx/**/*.jsx')
         .pipe(sourcemaps.init())
         .pipe(react())
         .pipe(sourcemaps.write())

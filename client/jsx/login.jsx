@@ -17,8 +17,7 @@ var Login = React.createClass({
             }),
             success: function(data){
                 if (data.logged_in){
-                    console.log(this.props);
-                    this.props.router.transitionTo('overview');
+                    window.mitra.router.transitionTo('overview');
                 }
                 if (data.username){
                     console.log(data.username[0]);

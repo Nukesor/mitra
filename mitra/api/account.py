@@ -31,8 +31,9 @@ def Register():
     errors = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})
 
     user = User.query.filter_by(email=parsed['email'])
-    euser = User.query.filter_by(username=parsed['username'])
-    # Elegant way for user or email checking
+    if user:
+        euser = User.query.filter_by(username=parsed['username'])
+    # TODO: Elegant way for database checking
     if not user and not euser:
         if len(errors) == 0:
             user = User(parsed['username'], parsed['password'], parsed['email'])

@@ -5,7 +5,7 @@ var App = React.createClass({
     render: function() {
         return (
             <div className="mainContainer">
-                <RouteHandler items={router} />
+                <RouteHandler />
             </div>
         )
     }
@@ -20,12 +20,13 @@ var routes = (
     </Route>
 );
 
-var router = ReactRouter.create({
+window.mitra = {};
+window.mitra.router = ReactRouter.create({
     routes:routes,
     location:ReactRouter.HistoryLocation}
 );
 
-router.run(function(Handler) {
+window.mitra.router.run(function(Handler) {
     React.render(<Handler/>, document.body);
 });
 
