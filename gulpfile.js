@@ -8,11 +8,12 @@ var shell  = require('gulp-shell');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
 
 
 // Default Task
-gulp.task('default', ['less', 'compileJSX', 'buildjs-dev', 'watch']);
+gulp.task('default', ['less-dev', 'compileJSX', 'buildjs-dev', 'watch']);
 
 // Build Task
 gulp.task('build', ['less', 'compileJSX', 'buildjs']);
@@ -21,15 +22,23 @@ gulp.task('build', ['less', 'compileJSX', 'buildjs']);
 gulp.task('watch', function() {
     gulp.watch('client/jsx/**/*.jsx', ['compileJSX']);
     gulp.watch('build/**/*.js', ['buildjs-dev']);
-    gulp.watch('client/less/**/*.less', ['less']);
+    gulp.watch('client/less/**/*.less', ['less-dev']);
 });
 
 // 
 gulp.task('less', function () {
   return gulp.src('client/less/**/*.less')
     .pipe(less())
+    .pipe(minifyCss())
     .pipe(gulp.dest('mitra/static/css/'));
 });
+
+gulp.task('less-dev', function () {
+  return gulp.src('client/less/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('mitra/static/css/'));
+});
+
 
 // Deploy jsx to js
 gulp.task('compileJSX', function() {

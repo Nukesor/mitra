@@ -1,6 +1,6 @@
 .PHONY: run setup install
 
-run:
+run: init-db
 	./scripts/run.sh
 
 update:

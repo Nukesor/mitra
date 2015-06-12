@@ -1,10 +1,16 @@
 var Login = React.createClass({
-    mixins: [React.addons.LinkedStateMixin],
     getInitialState: function(){
         return {
             username: 'Username',
             password: 'Password'
         };
+    },
+    handleChange: function (key) {
+        return function (e) {
+            var state = {};
+            state[key] = e.target.value;
+            this.setState(state);
+        }.bind(this);
     },
     handleSubmit: function() {
         $.ajax({
@@ -33,12 +39,10 @@ var Login = React.createClass({
             <div className="loginContainer"> 
                 <form className="loginWindow">
                     <div> 
-                        <label htmlFor="username"> Username or Email </label> 
-                        <input valueLink={this.linkState('username')} type="text"></input>
+                        <input placeholder="Username or Email" onChange={this.handleChange('username')} type="text"></input>
                     </div>
                     <div> 
-                        <label htmlFor="password">Password</label> 
-                        <input valueLink={this.linkState('password')} type="text"></input>
+                        <input placeholder="Password" onChange={this.handleChange('password')} type="text"></input>
                     </div>
                 </form>
                 <button form="loginWindow" value="Submit" onClick={this.handleSubmit} >Shit yo</button>

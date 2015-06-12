@@ -6,6 +6,9 @@ var Overview = React.createClass({
                     <Header />
                 </div>
                 <div>
+                    <EntryAdder />
+                </div>
+                <div>
                     <Sidebar />
                 </div>
                 <div>
@@ -22,6 +25,12 @@ var Overview = React.createClass({
 var Header = React.createClass({
     render: function() {
         return <div> HEADER </div>
+    }
+});
+
+var EntryAdder = React.createClass({
+    render: function() {
+        return <div> </div>
     }
 });
 

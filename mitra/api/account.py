@@ -30,20 +30,15 @@ def Register():
     parsed = request.get_json()
     errors = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})
 
-    user = User.query.filter_by(email=parsed['email'])
-    if user:
-        euser = User.query.filter_by(username=parsed['username'])
-    # TODO: Elegant way for database checking
-    if not user and not euser:
-        if len(errors) == 0:
-            user = User(parsed['username'], parsed['password'], parsed['email'])
-            if user:
-                db.session.add(user)
-                db.session.commit()
-                return jsonify(registered=True)
-            else:
-                return jsonify(error="Oups. Something went wrong.")
-
+    if len(errors) == 0:
+        user = User(parsed['username'], parsed['password'], parsed['email'])
+        if user:
+            db.session.add(user)
+            db.session.commit()
+            return jsonify(registered=True)
         else:
-            return jsonify(errors)
+            return jsonify(error="Oups. Something went wrong.")
+
+    else:
+        return jsonify(errors)
 
