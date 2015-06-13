@@ -11,16 +11,16 @@ from mitra.schemes.login import LoginScheme
 def LastTransactions():
     data = {}
     if current_user.is_authenticated():
-        data['entries'] = {}
+        data['entries'] = []
         recent = Entry.query.filter_by(userid=current_user.id).order_by(desc(Entry.date)).limit(50).all()
         if recent:
-            for key, entry in recent:
-                data.entries[key]={
-                    name:entry.name,
-                    date:entry.date,
-                    amount:entry.amount,
-                    category:entry.category
-                }
+            for entry in recent:
+                data['entries'].append({
+                    'name':entry.name,
+                    'date':entry.date.__str__(),
+                    'amount':entry.amount,
+                    'category':entry.category_name
+                })
             return jsonify(data)
         else:
             data['errors'] = {}

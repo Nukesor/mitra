@@ -11,7 +11,6 @@ class Entry(db.Model):
     def __init__(self, userid, category, date, name, amount):
         self.userid = userid
         self.category_name = category
-
         self.date = date
         self.name = name
         self.amount = amount
