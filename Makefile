@@ -1,7 +1,10 @@
-.PHONY: run setup install
+.PHONY: run stop update setup init-db arch-install clean
 
-run: init-db
+run: init-db stop
 	./scripts/run.sh
+
+stop:
+	./scripts/stop.sh
 
 update:
 	./scripts/update.sh
