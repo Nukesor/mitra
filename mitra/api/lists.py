@@ -8,11 +8,15 @@ from mitra.schemes.login import LoginScheme
 
 @app.route('/_lastTransactions', methods=['PUT', 'POST'])
 def LastTransactions():
+    data = {}
     if current_user.is_authenticated():
         return jsonify(jojo="atomrofl")
+    else:
+        data['redirect'] = 'login'
+
 
 @app.route('/_monthly', methods=['PUT', 'POST'])
-def Monthly():
+def monthly():
     if current_user.is_authenticated():
         return jsonify(jojo="atomrofl")
 
