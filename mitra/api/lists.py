@@ -1,3 +1,5 @@
+import datetime, calendar
+
 from flask import Flask,jsonify,request,redirect,url_for
 from flask.ext.classy import FlaskView, route
 from flask.ext.login import current_user
@@ -24,7 +26,7 @@ def LastTransactions():
             return jsonify(data)
         else:
             data['errors'] = {}
-            data['errors']['empty'] = ['No Entries']
+            data['errors']['empty'] = ['No Entries yet']
             return jsonify(data)
     else:
         data['redirect'] = 'login'
@@ -33,8 +35,36 @@ def LastTransactions():
 
 @app.route('/_monthly', methods=['PUT', 'POST'])
 def monthly():
+    data = {}
+    # TODO: Check for valid User input
+    parsed = request.get_json()
     if current_user.is_authenticated():
-        return jsonify(jojo="atomrofl")
+        data['entries'] = []
+        # Specify year, month and time span
+        year = parsed['year']
+        month = parsed['month']
+        num_days = calendar.monthrange(year, month)[1]
+        start_date = datetime.date(year, month, 1)
+        end_date = datetime.date(year, month, num_days)
+
+        # Search for Entries inside this time span
+        entries = Entry.query.filter(Entry.date >= start_date, Entry.date <= end_date).order_by(desc(Entry.date)).all()
+        if entries:
+            for entry in entries:
+                data['entries'].append({
+                    'name':entry.name,
+                    'date':entry.date.__str__(),
+                    'amount':entry.amount,
+                    'category':entry.category_name
+                })
+            return jsonify(data)
+        else:
+            data['errors'] = {}
+            data['errors']['empty'] = ['No Entries for this month']
+            return jsonify(data)
+    else:
+        data['redirect'] = 'login'
+        return jsonify(data)
 
 @app.route('/_weekly', methods=['PUT', 'POST'])
 def Weekly():

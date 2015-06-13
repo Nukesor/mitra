@@ -23,6 +23,16 @@ var Overview = React.createClass({
 });
 
 var Header = React.createClass({
+    InitialLoad: function() {
+        $.ajax({
+            url:'/_lastTransactions',
+            contentType: 'application/json',
+            method: 'POST',
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    },
     render: function() {
         return <div> HEADER </div>
     }
