@@ -14,9 +14,9 @@ def LastTransactions():
     data = {}
     if current_user.is_authenticated():
         data['entries'] = []
-        recent = Entry.query.filter_by(userid=current_user.id).order_by(desc(Entry.date)).limit(50).all()
-        if recent:
-            for entry in recent:
+        entries = Entry.query.filter_by(userid=current_user.id).order_by(desc(Entry.date)).limit(50).all()
+        if entries:
+            for entry in entries:
                 data['entries'].append({
                     'name':entry.name,
                     'date':entry.date.__str__(),
@@ -68,6 +68,35 @@ def monthly():
 
 @app.route('/_weekly', methods=['PUT', 'POST'])
 def Weekly():
+    data = {}
+    # TODO: Check for valid User input
+    parsed = request.get_json()
     if current_user.is_authenticated():
-        return jsonify(jojo="atomrofl")
+        data['entries'] = []
+        # Specify year, month and time span
+        year = parsed['year']
+        month = parsed['month']
+        day = parsed['day']
+        weekday = calendar.weekday(year, month, day)
+        start_date = datetime.date(year, month, day-weekday)
+        end_date = datetime.date(year, month, day-weekday+7)
+
+        # Search for Entries inside this time span
+        entries = Entry.query.filter(Entry.date >= start_date, Entry.date <= end_date).order_by(desc(Entry.date)).all()
+        if entries:
+            for entry in entries:
+                data['entries'].append({
+                    'name':entry.name,
+                    'date':entry.date.__str__(),
+                    'amount':entry.amount,
+                    'category':entry.category_name
+                })
+            return jsonify(data)
+        else:
+            data['errors'] = {}
+            data['errors']['empty'] = ['No Entries for this week']
+            return jsonify(data)
+    else:
+        data['redirect'] = 'login'
+        return jsonify(data)
 
