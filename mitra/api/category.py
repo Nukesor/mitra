@@ -39,8 +39,13 @@ def getCategories():
     data = {}
     # TODO Check for valid Userinput
     if current_user.is_authenticated():
-        data['categories'] = db.session.query(Category.name)
-        print(data['categories'])
+        categories = Category.query.all()
+        if categories:
+            data['categories'] = []
+            for category in categories:
+                data['categories'].append({
+                    'name':category.name
+                })
         return jsonify(data)
     else:
         data['redirect'] = 'login'
