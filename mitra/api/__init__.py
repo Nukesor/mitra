@@ -1,2 +1,2 @@
 from mitra.api import account
-from mitra.api import lists
+from mitra.api import entry

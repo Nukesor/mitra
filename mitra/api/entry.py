@@ -9,6 +9,36 @@ from mitra import app,db,lm
 from mitra.models.entry import Entry
 from mitra.schemes.login import LoginScheme
 
+@app.route('/_addEntry', methods=['PUT', 'POST'])
+def AddEntry():
+    data = {}
+    # TODO Check for valid Userinput
+    if current_user.is_authenticated():
+        parsed = request.get_json()
+        entry = Entry(current_user.id, parsed['category'], datetime.date(parsed['year'],parsed['month'],parsed['day']), parsed['name'], parsed['amount'])
+        db.session.add(entry)
+        db.session.commit()
+        data['success'] = 'Entry added'
+        return jsonify(data)
+    else:
+        data['redirect'] = 'login'
+        return jsonify(data)
+
+@app.route('/_removeEntry', methods=['PUT', 'POST'])
+def RemoveEntry():
+    data = {}
+    # TODO Check for valid Userinput
+    if current_user.is_authenticated():
+        parsed = request.get_json()
+        entry = Entry.query.filter_by(id=parsed['id']).delete()
+        db.session.commit()
+        data['success'] = 'Entry deleted'
+        return jsonify(data)
+    else:
+        data['redirect'] = 'login'
+        return jsonify(data)
+
+
 @app.route('/_lastTransactions', methods=['PUT', 'POST'])
 def LastTransactions():
     data = {}
@@ -21,7 +51,8 @@ def LastTransactions():
                     'name':entry.name,
                     'date':entry.date.__str__(),
                     'amount':entry.amount,
-                    'category':entry.category_name
+                    'category':entry.category_name,
+                    'id':entry.id
                 })
             return jsonify(data)
         else:
@@ -55,7 +86,8 @@ def monthly():
                     'name':entry.name,
                     'date':entry.date.__str__(),
                     'amount':entry.amount,
-                    'category':entry.category_name
+                    'category':entry.category_name,
+                    'id':entry.id
                 })
             return jsonify(data)
         else:
