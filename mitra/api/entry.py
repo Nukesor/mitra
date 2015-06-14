@@ -1,13 +1,11 @@
 import datetime, calendar
 
-from flask import Flask,jsonify,request,redirect,url_for
-from flask.ext.classy import FlaskView, route
+from flask import jsonify,request
 from flask.ext.login import current_user
 from sqlalchemy import desc
 
-from mitra import app,db,lm
+from mitra import app,db
 from mitra.models.entry import Entry
-from mitra.schemes.login import LoginScheme
 
 @app.route('/_addEntry', methods=['PUT', 'POST'])
 def AddEntry():
@@ -30,7 +28,7 @@ def RemoveEntry():
     # TODO Check for valid Userinput
     if current_user.is_authenticated():
         parsed = request.get_json()
-        entry = Entry.query.filter_by(id=parsed['id']).delete()
+        Entry.query.filter_by(id=parsed['id']).delete()
         db.session.commit()
         data['success'] = 'Entry deleted'
         return jsonify(data)
