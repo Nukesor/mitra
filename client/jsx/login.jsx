@@ -1,8 +1,9 @@
 var Login = React.createClass({
     getInitialState: function(){
         return {
-            username: 'Username',
-            password: 'Password'
+            username: '',
+            password: '',
+            errors: {}
         };
     },
     handleChange: function (key) {
@@ -25,6 +26,9 @@ var Login = React.createClass({
                 if (data.redirect){
                     window.mitra.router.transitionTo(data.redirect);
                 }
+                else {
+                    self.setState({errors: data.errors});
+                }
             }
         });
     },
@@ -33,9 +37,11 @@ var Login = React.createClass({
             <div className="loginContainer"> 
                 <form className="loginWindow">
                     <div> 
+                        { this.state.errors.user ? <div className='error'> {this.state.errors.user} </div> : '' }
                         <input placeholder="Username or Email" onChange={this.handleChange('username')} type="text"></input>
                     </div>
                     <div> 
+                        { this.state.errors.password ? <div className='error'> {this.state.errors.password} </div> : '' }
                         <input placeholder="Password" onChange={this.handleChange('password')} type="text"></input>
                     </div>
                 </form>

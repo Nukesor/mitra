@@ -4,6 +4,7 @@ var gulp = require('gulp');
 // Include Plugins
 var less = require('gulp-less');
 var react = require('gulp-react');
+var babel = require('gulp-babel');
 var shell  = require('gulp-shell');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
@@ -43,9 +44,9 @@ gulp.task('less-dev', function () {
 // Deploy jsx to js
 gulp.task('compileJSX', function() {
     return gulp.src('client/jsx/**/*.jsx')
-        .pipe(sourcemaps.init())
-        .pipe(react())
-        .pipe(sourcemaps.write())
+        //.pipe(sourcemaps.init())
+        .pipe(babel())
+        //.pipe(sourcemaps.write())
         .pipe(gulp.dest('build/jsx2js/'));
 });
 

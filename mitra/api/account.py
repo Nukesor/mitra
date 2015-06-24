@@ -19,10 +19,10 @@ def Login():
             data['redirect'] = 'overview'
             return jsonify(data)
         else:
-            data['errors']['WrongPass'] = ['Incorrect Password']
+            data['errors']['password'] = ['Incorrect Password']
             return jsonify(data)
     else:
-        data['errors']['NoUser'] = ['No such User']
+        data['errors']['user'] = ['No such User']
         return jsonify(data)
 
 
@@ -36,10 +36,9 @@ def Register():
     userExists = User.query.filter_by(username=parsed['username']).first()
     emailExists = User.query.filter_by(email=parsed['email']).first()
     if userExists:
-        data['errors']['userExists'] = ['Username already existing']
-    print(emailExists)
+        data['errors']['user'] = ['Username already existing']
     if emailExists:
-        data['errors']['emailExists'] = ['Email already existing']
+        data['errors']['email'] = ['Email already existing']
 
     # Check for valid Username and Password
     incorrect = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})

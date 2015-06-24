@@ -1,9 +1,10 @@
 var Register = React.createClass({
     getInitialState: function(){
         return {
-            username: 'Username',
-            password: 'Password',
-            email: 'Email'
+            username: '',
+            password: '',
+            email: '',
+            errors: {}
         };
     },
     handleChange: function (key) {
@@ -14,6 +15,7 @@ var Register = React.createClass({
         }.bind(this);
     },
     handleSubmit: function() {
+        var self = this;
         $.ajax({
             url: '/_register',
             contentType: 'application/json',
@@ -24,14 +26,10 @@ var Register = React.createClass({
                 email:this.state.email
             }),
             success: function(data){
-                if (data.registered){
-                    console.log('Done');
-                }
-                if (data.username){
-                    console.log(data.username[0]);
-                }
-                if (data.password){
-                    console.log(data.password[0]);
+                if (data.redirect) {
+                    window.mitra.router.transitionTo(data.redirect);
+                } else {
+                    self.setState({ errors: data.errors });
                 }
             }
         });
@@ -41,12 +39,15 @@ var Register = React.createClass({
             <div className="loginContainer"> 
                 <form className="loginWindow">
                     <div> 
+                        { this.state.errors.user ? <div className='error'> {this.state.errors.user} </div> : '' }
                         <input placeholder="Username" onChange={this.handleChange('username')}  type="text"></input>
                     </div>
                     <div> 
+                        { this.state.errors.email ? <div className='error'> {this.state.errors.email } </div> : '' }
                         <input placeholder="Email" onChange={this.handleChange('email')} type="text"></input>
                     </div>
                     <div> 
+                        { this.state.errors.password ? <div className='error'> {this.state.errors.password} </div> : '' }
                         <input placeholder="Password" onChange={this.handleChange('password')} type="password"></input>
                     </div>
                 </form>
