@@ -20,6 +20,11 @@ arch-install:
 	sudo pacman -Sy --noconfirm python-pip python-virtualenv npm
 
 clean:
+	rm -rf build
+	rm -rf mitra/static/js
+	rm -rf *__pycache__*
+
+reset:
 	rm -rf venv
 	rm -rf build
 	rm -rf node_modules
