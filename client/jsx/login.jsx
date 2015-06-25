@@ -45,7 +45,7 @@ var Login = React.createClass({
                         <input placeholder="Password" onChange={this.handleChange('password')} type="text"></input>
                     </div>
                 </form>
-                <button form="loginWindow" value="Submit" onClick={this.handleSubmit} >Shit yo</button>
+                <button form="loginWindow" value="Submit" onClick={this.handleSubmit} >Log In</button>
             </div>
         )
     }
