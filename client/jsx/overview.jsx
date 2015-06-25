@@ -23,16 +23,6 @@ var Overview = React.createClass({
 });
 
 var Header = React.createClass({
-    InitialLoad: function() {
-        $.ajax({
-            url:'/_lastTransactions',
-            contentType: 'application/json',
-            method: 'POST',
-            success: function (data) {
-                console.log(data);
-            }
-        })
-    },
     render: function() {
         return <div> HEADER </div>
     }
@@ -45,8 +35,34 @@ var EntryAdder = React.createClass({
 });
 
 var Display = React.createClass({
+    getInitialState : function() {
+        return {data:{}}
+    },
+    componentDidMount : function() {
+        var self = this;
+        $.ajax({
+            url:'/_lastTransactions',
+            contentType: 'application/json',
+            method: 'POST',
+            success: function (data) {
+                if (data.entries) {
+                    self.setState({data: data.entries}) ;
+                }
+            }
+        })
+    },
     render: function() {
-        return <div> DISPLAY </div>
+        var entries = []
+        for (var entry in this.state.data) {
+            entries.push(<Entry {...this.state.data[entry]} key={entry}/>);
+        }
+        return <ul> {entries} </ul>
+    }
+});
+
+var Entry = React.createClass({
+    render: function() {
+        return <div>{this.props.date}</div>
     }
 });
 
