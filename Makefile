@@ -31,4 +31,5 @@ reset:
 	rm -rf mitra/static/bower
 	rm -rf mitra/static/js
 	rm -rf *__pycache__*
+	git clean -d -f
 
