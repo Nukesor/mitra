@@ -1,5 +1,5 @@
 // Include gulp
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 
 // Include Plugins
 var less = require('gulp-less');
@@ -14,19 +14,20 @@ var sourcemaps = require('gulp-sourcemaps');
 
 
 // Default Task
-gulp.task('default', ['less-dev', 'compileJSX', 'buildjs-dev', 'watch']);
+gulp.task('default', ['less-dev', 'compileJSX', 'compileJS', 'buildjs-dev', 'watch']);
 
 // Build Task
-gulp.task('build', ['less', 'compileJSX', 'buildjs']);
+gulp.task('build', ['less', 'compileJSX', 'compileJS', 'buildjs']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('client/jsx/**/*.jsx', ['compileJSX']);
+    gulp.watch('client/js/**/*.js', ['compileJS']);
     gulp.watch('build/**/*.js', ['buildjs-dev']);
     gulp.watch('client/less/**/*.less', ['less-dev']);
 });
 
-// 
+//
 gulp.task('less', function () {
   return gulp.src('client/less/**/*.less')
     .pipe(less())
@@ -49,6 +50,16 @@ gulp.task('compileJSX', function() {
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest('build/jsx2js/'));
 });
+
+// Move js to build
+gulp.task('compileJS', function() {
+    return gulp.src('client/js/**/*.js')
+        //.pipe(sourcemaps.init())
+        .pipe(babel())
+        //.pipe(sourcemaps.write())
+        .pipe(gulp.dest('build/js/'));
+});
+
 
 // Minify and deploy js
 gulp.task('buildjs', function() {

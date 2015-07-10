@@ -2,6 +2,9 @@ var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 
 var App = React.createClass({
+    componentDidMount : function () {
+        window.mitra.helper.loginCheck();
+    },
     render: function() {
         return (
             <div className="mainContainer">
@@ -12,7 +15,7 @@ var App = React.createClass({
 });
 
 var routes = (
-    <Route handler={App} path="/">
+    <Route path="/" handler={App}>
         <Route name="login" path="/login" handler={Login}/>
         <Route name="register" path="/register" handler={Register}/>
         <Route name="overview" path="/overview" handler={Overview}/>
@@ -20,7 +23,10 @@ var routes = (
     </Route>
 );
 
-window.mitra = {};
+if (window.mitra === undefined) {
+    window.mitra = {};
+}
+
 window.mitra.router = ReactRouter.create({
     routes:routes,
     location:ReactRouter.HistoryLocation}

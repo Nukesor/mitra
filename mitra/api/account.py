@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request,redirect,url_for
 from flask.ext.classy import FlaskView, route
-from flask.ext.login import login_user
+from flask.ext.login import login_user, current_user
 
 from mitra import app,db,lm
 from mitra.models.user import User
@@ -57,5 +57,15 @@ def Register():
             return jsonify(data)
 
     else:
+        return jsonify(data)
+
+@app.route('/_loggedIn', methods=['GET', 'POST'])
+def LoggedIn():
+    data = {}
+    if current_user.is_authenticated():
+        data['loggedIn'] = True
+        return jsonify(data)
+    else:
+        data['loggedIn'] = False
         return jsonify(data)
 
