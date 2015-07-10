@@ -17,6 +17,7 @@ var EntryAdder = React.createClass({
     handleSubmit: function() {
         var date = this.state.date.split('-');
         date = date.map((x) => parseFloat(x));
+        var self = this;
         $.ajax({
             url: '/_addEntry',
             contentType: 'application/json',
@@ -41,13 +42,13 @@ var EntryAdder = React.createClass({
     },
     render: function() {
         return (
-            <div>
+            <div className='contentSegment'>
                 <input className='entryName' placeholder="Entry name" type='text' onChange={this.handleChange('name')}> </input>
                 <input className='entryAmount' placeholder="Amount" type='number' onChange={this.handleChange('amount')}> </input>
                 <input className='entryDate' placeholder="DD-MM-YYYY" type='date' onChange={this.handleChange('date')}> </input>
                 <input className='entryCategory' placeholder="Category" type='text' onChange={this.handleChange('category')}> </input>
                 <button form="entryAdded" value="Submit" onClick={this.handleSubmit} >Shit yo</button>
-                </div>
+            </div>
         )
     }
 });

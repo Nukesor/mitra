@@ -21,8 +21,8 @@ var Navbar = React.createClass({
     },
     render: function() {
         return (
-            <div className='navBar'> 
-                <button onClick={this.recentHandler}> Overview</button>
+            <div className='navigation'>
+                <button onClick={this.recentHandler}> Overview </button>
                 <div>
                     <input className="entryDate" placeholder="Month" onChange={this.handleChange('date')} type="month"></input>
                     <button onClick={this.sendMonth} > Monthly</button>

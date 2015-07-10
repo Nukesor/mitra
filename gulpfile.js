@@ -31,6 +31,7 @@ gulp.task('watch', function() {
 gulp.task('less', function () {
   return gulp.src('client/less/**/*.less')
     .pipe(less())
+    .pipe(concat('main.css'))
     .pipe(minifyCss())
     .pipe(gulp.dest('mitra/static/css/'));
 });

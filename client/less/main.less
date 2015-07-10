@@ -1,14 +1,156 @@
-.mainContainer .loginContainer {
+body {
     width: 100%;
+    margin: 0px;
+    background-color: #ffffff;
+
+    font-family: 'Roboto', sans-serif, bold;
+    color: #3e3e3e;
+}
+
+.header {
+    font-family: 'Roboto', sans-serif, bold;
+    float:left;
+    padding: 18px 40px 0 0;
+
+    width: 100%;
+    height: 50px;
+
+    background-color: #ffa500;
+
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    margin: 0px;
+
+    font-family: 'Roboto', sans-serif, bold;
+    color: #3e3e3e;
+}
+
+.navigation {
+    width: 200px;
     height: 100%;
-}
-
-.loginWindow {
-    display: table;
-    margin: auto auto;
-}
-
-.navBar {
     float: left;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+
+.contentWrapping {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.contentSegment {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0px;
+}
+
+.content {
+    margin: 10px 10px 10px 10px;
+    padding: 10px 15px 10px 15px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #00b0b0;
+    border-radius:2px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fbfbfb;
+    flex: 1 auto;
+}
+
+hr.descriptionseperator {
+    display: block;
+    width: 75%;
+
+    margin: 15px auto 30px 0;
+
+    border-width: 1px;
+    border-color: #00a0a0;
+}
+
+h1{
+    margin: 10px 0 10px 0;
+    font-size: 30px;
+}
+
+h2{
+    margin: 5px 0 10px 0;
+    font-size: 20px;
+}
+
+p, li{
+    font-size: 16px;
+}
+
+.linkButton {
+    padding: 9px;
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    border-radius: 6px;
+    background-color: #00d8d8;
+}
+
+.linkButton:link {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.linkButton:visited {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.linkButton:active {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.linkButton:hover {
+    color: #2e2e2e;
+    text-decoration: none;
+    background-color: #00cccc;
+}
+
+.projectLink {
+    padding: 9px;
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 8px;
+
+    border-radius: 6px;
+    background-color: #ffa500;
+}
+
+.projectLink:link {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.projectLink:visited {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.projectLink:active {
+    color: #2e2e2e;
+    text-decoration: none
+}
+.projectLink:hover {
+    color: #2e2e2e;
+    text-decoration: none;
+    background-color: #ffb500;
 }
 

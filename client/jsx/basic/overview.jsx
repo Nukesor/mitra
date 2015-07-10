@@ -17,15 +17,14 @@ var Overview = React.createClass({
         return (
             <div>
                 <Header />
-                <div>
+                <div className='container' >
                     <Navbar navbarHandler={this.navbarHandler} />
-                    <div>
+                    <div className='contentWrapper' >
                         <EntryAdder />
                         { this.state.view === 'recent' && <Recent /> }
                         { this.state.view === 'month' && <Month month={this.state.month} year={this.state.year} /> }
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

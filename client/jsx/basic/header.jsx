@@ -1,6 +1,6 @@
 var Header = React.createClass({
     render: function() {
-        return <div> HEADER </div>
+        return <div className='header' > HEADER </div>
     }
 });
 
