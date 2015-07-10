@@ -15,7 +15,7 @@ var EntryAdder = React.createClass({
         }.bind(this);
     },
     handleSubmit: function() {
-        var date = this.state.date.split('-');
+        var date = this.state.date.split('.');
         date = date.map((x) => parseFloat(x));
         var self = this;
         $.ajax({
@@ -26,9 +26,9 @@ var EntryAdder = React.createClass({
                 name:this.state.name,
                 amount:this.state.amount,
                 category:this.state.category,
-                day:date[2],
+                day:date[0],
                 month:date[1],
-                year:date[0]
+                year:date[2]
             }),
             success: function(data){
                 if (data.redirect){
@@ -41,12 +41,14 @@ var EntryAdder = React.createClass({
         });
     },
     render: function() {
+        var currentTime = new Date();
+        var timeString = currentTime.getDate() + '.'+ (currentTime.getMonth()+1) + '.' + currentTime.getFullYear();
         return (
             <div className='contentSegment'>
-                <input className='entryName' placeholder="Entry name" type='text' onChange={this.handleChange('name')}> </input>
-                <input className='entryAmount' placeholder="Amount" type='number' onChange={this.handleChange('amount')}> </input>
-                <input className='entryDate' placeholder="DD-MM-YYYY" type='date' onChange={this.handleChange('date')}> </input>
-                <input className='entryCategory' placeholder="Category" type='text' onChange={this.handleChange('category')}> </input>
+                <input className='entryInput' placeholder="Entry name" type='text' onChange={this.handleChange('name')}> </input>
+                <input className='entryInput' placeholder="Amount" type='number' onChange={this.handleChange('amount')}> </input>
+                <input className='entryInput' placeholder="DD.MM.YYYY" value={timeString} type='text' onChange={this.handleChange('date')}> </input>
+                <input className='entryInput' placeholder="Category" type='text' onChange={this.handleChange('category')}> </input>
                 <button form="entryAdded" value="Submit" onClick={this.handleSubmit} >Shit yo</button>
             </div>
         )
