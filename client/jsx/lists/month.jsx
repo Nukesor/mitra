@@ -1,15 +1,19 @@
-var Month = React.createClass({
-    getInitialState : function() {
-        return {data:{}}
-    },
-    componentDidMount : function () {
+class Month extends React.Component {
+    constructor () {
+        super();
+        this.state = {data:{}};
+        this.getData = this.getData.bind(this);
+    }
+
+    componentDidMount () {
         this.getData(this.props.month, this.props.year);
-    },
-    componentWillReceiveProps: function (nextProps) {
+    }
+
+    componentWillReceiveProps (nextProps) {
         this.getData(nextProps.month, nextProps.year);
-    },
-    getData: function(month, year) {
-        var self = this;
+    }
+
+    getData (month, year) {
         $.ajax({
             url:'/_monthly',
             contentType: 'application/json',
@@ -18,19 +22,20 @@ var Month = React.createClass({
                 month:month,
                 year:year
             }),
-            success: function (data) {
+            success: (data) => {
                 if (data.entries) {
-                    self.setState({data: data.entries}) ;
+                    this.setState({data: data.entries}) ;
                 }
             }
         })
-    },
-    render: function() {
+    }
+
+    render () {
         var entries = []
         for (var entry in this.state.data) {
             entries.push(<Entry {...this.state.data[entry]} key={entry}/>);
         }
         return <ul> {entries} </ul>
     }
-});
+}
 

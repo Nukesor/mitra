@@ -1,18 +1,19 @@
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 
-var App = React.createClass({
+class App extends React.Component {
     //    componentDidMount : function () {
     //        window.mitra.helper.loginCheck();
-    //    },
-    render: function() {
+    //    }
+    //
+    render () {
         return (
             <div className="mainContainer">
                 <RouteHandler />
             </div>
         )
     }
-});
+}
 
 var routes = (
     <Route path="/" handler={App}>

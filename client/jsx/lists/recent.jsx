@@ -1,26 +1,28 @@
-var Recent = React.createClass({
-    getInitialState : function() {
-        return {data:{}}
-    },
-    componentDidMount : function() {
-        var self = this;
+class Recent extends React.Component {
+    constructor () {
+        super();
+        this.state = {data:{}};
+    }
+
+    componentDidMount () {
         $.ajax({
             url:'/_lastTransactions',
             contentType: 'application/json',
             method: 'POST',
-            success: function (data) {
+            success: (data) => {
                 if (data.entries) {
-                    self.setState({data: data.entries}) ;
+                    this.setState({data: data.entries}) ;
                 }
             }
         })
-    },
-    render: function() {
+    }
+
+    render () {
         var entries = []
         for (var entry in this.state.data) {
             entries.push(<Entry {...this.state.data[entry]} key={entry}/>);
         }
         return <ul> {entries} </ul>
     }
-});
+}
 

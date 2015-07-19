@@ -1,4 +1,4 @@
-class Header extend React.Component {
+class Header extends React.Component {
     render () {
         return <div className='header' > HEADER </div>
     }

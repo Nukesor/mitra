@@ -2,8 +2,8 @@ class Navbar extends React.Component {
     constructor () {
         super();
         this.handleChange.bind(this);
-        this.handleHandler = this.handleHandler.bind(this);
-        this.sentMonth = this.sentMonth.bind(this);
+        this.recentHandler = this.recentHandler.bind(this);
+        this.sendMonth = this.sendMonth.bind(this);
         var year = new Date().getFullYear();
         var month = new Date().getMonth()+1;
         month = month.toString();
@@ -15,23 +15,23 @@ class Navbar extends React.Component {
         };
     }
 
-    handleChange: function (key) {
-        return function (e) {
+    handleChange (key) {
+        return (e) => {
             var state = {};
             state[key] = e.target.value;
             this.setState(state);
-        }.bind(this);
+        }
     }
 
-    recentHandler: function () {
+    recentHandler () {
         this.props.navbarHandler('recent');
     }
 
-    sendMonth: function () {
+    sendMonth () {
         this.props.navbarHandler('month', parseInt(this.state.month), parseInt(this.state.year));
     }
 
-    render: function() {
+    render () {
         var years = []
         for (var year = new Date().getFullYear(); year >= 2010; year--) {
             years.push(<option key={year.toString()} value={year.toString()}> {year}</option>);
@@ -47,10 +47,10 @@ class Navbar extends React.Component {
                 <button onClick={this.recentHandler}> Overview </button>
                 <div>
                     <select name="months" id="months" onChange={this.handleChange('month')} defaultValue={this.state.month}>
-                    {months}
+                        {months}
                     </select>
                     <select name="years" id="years" onChange={this.handleChange('year')}>
-                    {years}
+                        {years}
                     </select>
 
                     <button onClick={this.sendMonth} > Monthly</button>

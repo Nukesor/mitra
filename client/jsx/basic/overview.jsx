@@ -1,19 +1,20 @@
-var Overview = React.createClass({
-    getInitialState: function () {
-        return {
-            view: 'recent',
-            month: '',
-            year: ''
-        }
-    },
-    navbarHandler: function (state, month, year) {
+class Overview extends React.Component {
+    constructor () {
+        super();
+        window.mitra.helper.loginCheck();
+        this.navbarHandler = this.navbarHandler.bind(this);
+        this.state = {view: 'recent', month: '', year: ''}
+    }
+
+    navbarHandler (state, month, year) {
         this.setState({
             view: state,
             month: (year === undefined ? '' : month),
             year: (year === undefined ? '' : year)
         });
-    },
-    render: function() {
+    }
+
+    render () {
         return (
             <div>
                 <Header />
@@ -28,5 +29,5 @@ var Overview = React.createClass({
             </div>
         )
     }
-});
+}
 

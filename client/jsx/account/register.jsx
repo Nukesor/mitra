@@ -7,11 +7,11 @@ class Register extends React.Component {
     }
 
     handleChange (key) {
-        return function (e) {
+        return (e) => {
             var state = {};
             state[key] = e.target.value;
             this.setState(state);
-        }.bind(this);
+        }
     }
 
     handleSubmit () {
@@ -24,13 +24,13 @@ class Register extends React.Component {
                 password:this.state.password,
                 email:this.state.email
             }),
-            success: function(data){
+            success: (data) => {
                 if (data.redirect) {
                     window.mitra.router.transitionTo(data.redirect);
                 } else {
                     this.setState({ errors: data.errors });
                 }
-            }.bind(this)
+            }
         });
     }
 
