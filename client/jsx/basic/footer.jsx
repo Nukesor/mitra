@@ -1,6 +1,6 @@
-var Footer = React.createClass({
-    render: function() {
+class Footer extends React.Component {
+    render () {
         return <div> FOOTER </div>
     }
-});
+}
 

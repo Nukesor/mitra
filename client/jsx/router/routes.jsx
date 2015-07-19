@@ -2,9 +2,9 @@ var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 
 var App = React.createClass({
-    componentDidMount : function () {
-        window.mitra.helper.loginCheck();
-    },
+    //    componentDidMount : function () {
+    //        window.mitra.helper.loginCheck();
+    //    },
     render: function() {
         return (
             <div className="mainContainer">
