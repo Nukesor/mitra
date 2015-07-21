@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . venv/bin/activate
+pip install --upgrade pip
 pip install --upgrade -r requirements.txt
-npm install
-./node_modules/bower/bin/bower install
+npm update
+./node_modules/bower/bin/bower update
