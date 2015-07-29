@@ -42,7 +42,6 @@ def RemoveEntry():
     data = {}
     if current_user.is_authenticated():
         parsed = request.get_json()
-        #TODO: Killing all entries with id. Userid needed in query
         current_user.entries.filter_by(id=parsed['id']).delete()
         db.session.commit()
         data['success'] = 'Entry deleted'
@@ -57,7 +56,7 @@ def LastTransactions():
     data = {}
     if current_user.is_authenticated():
         data['entries'] = []
-        entries = Entry.query.filter_by(userid=current_user.id).order_by(desc(Entry.date)).limit(50).all()
+        entries = current_user.entries.order_by(desc(Entry.date)).limit(50).all()
         if entries:
             for entry in entries:
                 data['entries'].append({
