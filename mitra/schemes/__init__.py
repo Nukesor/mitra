@@ -1,1 +1,1 @@
-from mitra.schemes import login
+from mitra.schemes import user

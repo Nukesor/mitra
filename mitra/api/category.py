@@ -3,7 +3,6 @@ from flask.ext.login import current_user
 
 from mitra import app,db
 from mitra.models.category import Category
-from mitra.schemes.login import LoginScheme
 
 @app.route('/_addCategory', methods=['PUT', 'POST'])
 def AddCategory():

@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, current_user
 
 from mitra import app,db,lm
 from mitra.models.user import User
-from mitra.schemes.login import LoginScheme
+from mitra.schemes.user import LoginScheme, RegistrationScheme
 
 @app.route('/_login', methods=['PUT', 'POST'])
 def Login():
@@ -13,6 +13,7 @@ def Login():
     parsed = request.get_json()
 
     user = User.query.filter_by(username=parsed['username']).first()
+    incorrect = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})
     if user:
         if user.checkPassword(parsed['password']):
             login_user(user)
@@ -41,7 +42,7 @@ def Register():
         data['errors']['email'] = ['Email already existing']
 
     # Check for valid Username and Password
-    incorrect = LoginScheme().validate({'username':parsed['username'],'password':parsed['password']})
+    incorrect = RegistrationScheme().validate({'username':parsed['username'],'password':parsed['password'],'email':parsed['email']})
     data['errors'].update(incorrect)
 
     # I there are no errors, a new User es beeing created

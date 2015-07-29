@@ -6,18 +6,32 @@ from sqlalchemy import desc
 
 from mitra import app,db
 from mitra.models.entry import Entry
+from mitra.schemes.entry import EntryScheme
 
 @app.route('/_addEntry', methods=['PUT', 'POST'])
 def AddEntry():
     data = {}
-    # TODO Check for valid Userinput
+    data['errors'] = {}
     if current_user.is_authenticated():
         parsed = request.get_json()
-        entry = Entry(current_user.id, parsed['category'], datetime.date(parsed['year'],parsed['month'],parsed['day']), parsed['name'], parsed['amount'])
-        db.session.add(entry)
-        db.session.commit()
-        data['success'] = 'Entry added'
-        return jsonify(data)
+        incorrect = EntryScheme().validate(
+            {
+            'category':parsed['category'],
+            'date':datetime.date(parsed['year'],parsed['month'],parsed['day']),
+            'name':parsed['name'],
+            'amount':parsed['amount']
+            }
+        )
+        data['errors'].update(incorrect)
+
+        if len(data['errors']) == 0:
+            entry = Entry(current_user.id, parsed['category'], datetime.date(parsed['year'],parsed['month'],parsed['day']), parsed['name'], parsed['amount'])
+            db.session.add(entry)
+            db.session.commit()
+            data['success'] = 'Entry added'
+            return jsonify(data)
+        else:
+            return jsonify(data)
     else:
         data['redirect'] = 'login'
         return jsonify(data)
