@@ -14,10 +14,11 @@ def AddEntry():
     data['errors'] = {}
     if current_user.is_authenticated():
         parsed = request.get_json()
+        entryDate = datetime.date(parsed['year'],parsed['month'],parsed['day'])
         incorrect = EntryScheme().validate(
             {
             'category':parsed['category'],
-            'date':datetime.date(parsed['year'],parsed['month'],parsed['day']),
+            'date':entryDate.isoformat(),
             'name':parsed['name'],
             'amount':parsed['amount']
             }
@@ -25,7 +26,7 @@ def AddEntry():
         data['errors'].update(incorrect)
 
         if len(data['errors']) == 0:
-            entry = Entry(current_user.id, parsed['category'], datetime.date(parsed['year'],parsed['month'],parsed['day']), parsed['name'], parsed['amount'])
+            entry = Entry(current_user.id, parsed['category'], entryDate, parsed['name'], parsed['amount'])
             db.session.add(entry)
             db.session.commit()
             data['success'] = 'Entry added'
@@ -39,10 +40,10 @@ def AddEntry():
 @app.route('/_removeEntry', methods=['PUT', 'POST'])
 def RemoveEntry():
     data = {}
-    # TODO Check for valid Userinput
     if current_user.is_authenticated():
         parsed = request.get_json()
-        Entry.query.filter_by(id=parsed['id']).delete()
+        #TODO: Killing all entries with id. Userid needed in query
+        current_user.entries.filter_by(id=parsed['id']).delete()
         db.session.commit()
         data['success'] = 'Entry deleted'
         return jsonify(data)
