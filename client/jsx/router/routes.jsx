@@ -17,6 +17,7 @@ class App extends React.Component {
 
 var routes = (
     <Route path="/" handler={App}>
+        <Route name="root" path="/" handler={Overview}/>
         <Route name="login" path="/login" handler={Login}/>
         <Route name="register" path="/register" handler={Register}/>
         <Route name="overview" path="/overview" handler={Overview}/>
