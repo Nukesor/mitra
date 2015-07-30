@@ -22,10 +22,9 @@ def AddCategory():
 @app.route('/_removeCategory', methods=['PUT', 'POST'])
 def RemoveCategory():
     data = {}
-    # TODO Check for valid Userinput
     if current_user.is_authenticated():
         parsed = request.get_json()
-        Category.query.filter_by(name=parsed['name'], userid=current_user.id).delete()
+        current_user.filter_by(name=parsed['name'], userid=current_user.id).delete()
         db.session.commit()
         data['success'] = 'Category deleted'
         return jsonify(data)
@@ -36,9 +35,8 @@ def RemoveCategory():
 @app.route('/_getCategories', methods=['GET', 'POST'])
 def getCategories():
     data = {}
-    # TODO Check for valid Userinput
     if current_user.is_authenticated():
-        categories = Category.query.all()
+        categories = current_user.categories.all()
         if categories:
             data['categories'] = []
             for category in categories:
