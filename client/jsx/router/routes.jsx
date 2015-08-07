@@ -29,6 +29,8 @@ if (window.mitra === undefined) {
     window.mitra = {};
 }
 
+window.mitra.eventManager = new Eventmanager();
+
 window.mitra.router = ReactRouter.create({
     routes:routes,
     location:ReactRouter.HistoryLocation}
@@ -37,4 +39,5 @@ window.mitra.router = ReactRouter.create({
 window.mitra.router.run(function(Handler) {
     React.render(<Handler/>, document.body);
 });
+
 

@@ -7,6 +7,7 @@ class Month extends React.Component {
     }
 
     componentDidMount () {
+        window.mitra.eventManager.addListener('month', 'entryAdded', this.refreshData);
         this.getData(this.props.month, this.props.year);
     }
 

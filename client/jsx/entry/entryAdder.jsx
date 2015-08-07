@@ -35,8 +35,13 @@ class EntryAdder extends React.Component {
                 if (data.redirect){
                     window.mitra.router.transitionTo(data.redirect);
                 }
+                //TODO: Api needs to be adjusted
+                //                else if (data.errors) {
+                //                    this.setState({errors: data.errors});
+                //                }
                 else {
-                    this.setState({errors: data.errors});
+                    var eventAdded = new Event('entryAdded');
+                    window.mitra.eventManager.spreadEvent(eventAdded);
                 }
             }
         });

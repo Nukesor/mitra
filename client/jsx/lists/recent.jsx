@@ -7,6 +7,7 @@ class Recent extends React.Component {
     }
 
     componentDidMount () {
+        window.mitra.eventManager.addListener('recent', 'entryAdded', this.refreshData);
         this.getData();
     }
 
