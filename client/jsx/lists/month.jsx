@@ -3,6 +3,7 @@ class Month extends React.Component {
         super();
         this.state = {data:{}};
         this.getData = this.getData.bind(this);
+        this.refreshData = this.refreshData.bind(this);
     }
 
     componentDidMount () {
@@ -11,6 +12,10 @@ class Month extends React.Component {
 
     componentWillReceiveProps (nextProps) {
         this.getData(nextProps.month, nextProps.year);
+    }
+
+    refreshData () {
+        this.getData(this.props.month, this.props.year);
     }
 
     getData (month, year) {
@@ -24,7 +29,7 @@ class Month extends React.Component {
             }),
             success: (data) => {
                 if (data.entries) {
-                    this.setState({data: data.entries}) ;
+                    this.setState({data: data.entries});
                 }
             }
         })
@@ -33,7 +38,7 @@ class Month extends React.Component {
     render () {
         var entries = []
         for (var entry in this.state.data) {
-            entries.push(<Entry {...this.state.data[entry]} key={entry}/>);
+            entries.push(<Entry refreshData={this.refreshData} {...this.state.data[entry]} key={entry}/>);
         }
         return <ul> {entries} </ul>
     }

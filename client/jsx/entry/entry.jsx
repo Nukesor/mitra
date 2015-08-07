@@ -14,7 +14,7 @@ class Entry extends React.Component {
                 id:this.props.id
             }),
             success: (data) => {
-                //TODO: Refreshing
+                this.props.refreshData();
             }
         });
     }
