@@ -1,3 +1,5 @@
+import Event from '../helper/event.js'
+
 export default class EntryAdder extends React.Component {
     constructor () {
         var currentTime = new Date();

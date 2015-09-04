@@ -1,3 +1,5 @@
+import Event from '../helper/event.js'
+
 export default class CategoryOverview extends React.Component {
     constructor () {
         super();
