@@ -1,9 +1,4 @@
-if (window.mitra === undefined) {
-    window.mitra = {};
-}
-
-window.mitra.helper = {}
-window.mitra.helper.loginCheck = function (successRoute, failureRoute) {
+module.exports = function (successRoute, failureRoute) {
     if (typeof failureRoute === 'undefined') { failureRoute = 'login'; }
     if (typeof successRoute === 'undefined') { successRoute = 'overview'; }
     $.ajax({

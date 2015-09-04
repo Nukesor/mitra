@@ -1,3 +1,11 @@
+import Login from './account/login.js';
+import Register from './account/register.js';
+
+import Overview from './basic/overview.js';
+
+
+import Eventmanager from './helper/eventManager.js';
+
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 
@@ -17,11 +25,10 @@ class App extends React.Component {
 
 var routes = (
     <Route path="/" handler={App}>
-        <Route name="root" path="/" handler={Overview}/>
-        <Route name="login" path="/login" handler={Login}/>
-        <Route name="register" path="/register" handler={Register}/>
-        <Route name="overview" path="/overview" handler={Overview}/>
-        <Route name="impressum" path="/impressum" handler={Impressum}/>
+        <Route name="root" path="/" handler={Overview} />
+        <Route name="login" path="/login" handler={Login} />
+        <Route name="register" path="/register" handler={Register} />
+        <Route name="overview" path="/overview" handler={Overview} />
     </Route>
 );
 

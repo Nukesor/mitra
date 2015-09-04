@@ -1,4 +1,4 @@
-class Entry extends React.Component {
+export default class Entry extends React.Component {
 
     constructor () {
         super();

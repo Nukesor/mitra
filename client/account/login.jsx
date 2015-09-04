@@ -1,4 +1,4 @@
-class Login extends React.Component {
+export default class Login extends React.Component {
     constructor () {
         super();
         this.handleChange.bind(this);

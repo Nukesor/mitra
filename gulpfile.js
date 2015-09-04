@@ -2,80 +2,105 @@
 var gulp = require('gulp');
 
 // Include Plugins
-var less = require('gulp-less');
-var react = require('gulp-react');
-var babel = require('gulp-babel');
-var shell  = require('gulp-shell');
-var rename = require('gulp-rename');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var minifyCss = require('gulp-minify-css');
-var sourcemaps = require('gulp-sourcemaps');
+var less = require('gulp-less'),
+    babel = require('gulp-babel'),
+    watchify = require('watchify'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
+    browserify = require('browserify'),
+    streamify = require('gulp-streamify'),
+    minifyCss = require('gulp-minify-css'),
+    source = require('vinyl-source-stream');
 
+var path = {
+    build_dir: './build/',
+    entry_point: './build/app.js',
+    js_name: 'mitra.min.js',
+    js_out: './mitra/static/js/',
+    css_out: './mitra/static/css/',
+    css_name: 'mitra.min.css'
+};
 
 // Default Task
-gulp.task('default', ['less-dev', 'compileJSX', 'compileJS', 'buildjs-dev', 'watch']);
+gulp.task('default', ['less-dev', 'compileJSX', 'compileJS', 'js-dev', 'watch']);
 
 // Build Task
-gulp.task('build', ['less', 'compileJSX', 'compileJS', 'buildjs']);
+gulp.task('build', ['less-prod', 'compileJSX', 'compileJS', 'js-prod']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('client/jsx/**/*.jsx', ['compileJSX']);
-    gulp.watch('client/js/**/*.js', ['compileJS']);
-    gulp.watch('build/**/*.js', ['buildjs-dev']);
+    gulp.watch('client/**/*.jsx', ['compileJSX']);
+    gulp.watch('client/**/*.js', ['compileJS']);
     gulp.watch('client/less/**/*.less', ['less-dev']);
 });
 
 //
-gulp.task('less', function () {
-  return gulp.src('client/less/**/*.less')
+gulp.task('less-prod', function () {
+    return gulp.src('client/less/**/*.less')
     .pipe(less())
-    .pipe(concat('main.css'))
     .pipe(minifyCss())
-    .pipe(gulp.dest('mitra/static/css/'));
+    .pipe(rename(path.css_name))
+    .pipe(gulp.dest(path.css_out));
+});
+
+gulp.task('move-deps-dev', function () {
+
 });
 
 gulp.task('less-dev', function () {
-  return gulp.src('client/less/**/*.less')
+    return gulp.src('client/less/**/*.less')
     .pipe(less())
-    .pipe(gulp.dest('mitra/static/css/'));
+    .pipe(rename(path.css_name))
+    .pipe(gulp.dest(path.css_out));
 });
 
 
 // Deploy jsx to js
 gulp.task('compileJSX', function() {
-    return gulp.src('client/jsx/**/*.jsx')
-        //.pipe(sourcemaps.init())
-        .pipe(babel())
-        //.pipe(sourcemaps.write())
-        .pipe(gulp.dest('build/jsx2js/'));
+    return gulp.src('client/**/*.jsx')
+    .pipe(babel())
+    .pipe(gulp.dest(path.build_dir));
 });
 
 // Move js to build
 gulp.task('compileJS', function() {
-    return gulp.src('client/js/**/*.js')
-        //.pipe(sourcemaps.init())
-        .pipe(babel())
-        //.pipe(sourcemaps.write())
-        .pipe(gulp.dest('build/js/'));
+    return gulp.src('client/**/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest(path.build_dir));
 });
 
 
-// Minify and deploy js
-gulp.task('buildjs', function() {
-    return gulp.src('build/**/*.js')
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('build/'))
-        .pipe(rename('all.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('mitra/static/js/'));
+gulp.task('js-dev', ['move-deps-dev','less-dev'], function() {
+
+    // Watching jsx and js files
+    var watcher  = watchify(browserify({
+        entries: [path.entry_point],
+        debug: true,
+        cache: {}, packageCache: {}, fullPaths: true
+    }));
+
+    return watcher.on('update', function () {
+        watcher.bundle()
+        .on("error", function (err) { console.log("Error : " + err.message); })
+        .pipe(source(path.js_name))
+        .pipe(gulp.dest(path.js_out));
+        console.log('Javascript Updated');
+    })
+    .bundle()
+    .on("error", function (err) { console.log("Error : " + err.message); })
+    .pipe(source(path.js_name))
+    .pipe(gulp.dest(path.js_out));
 });
 
-// Deploy unminified js
-gulp.task('buildjs-dev', function() {
-    return gulp.src('build/**/*.js')
-        .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('mitra/static/js/'));
 
+gulp.task('js-prod', function(){
+    browserify({
+        entries: [path.entry_point]
+    })
+    .bundle()
+    .on("error", function (err) { console.log("Error : " + err.message); })
+    .pipe(uglify())
+    .pipe(gulp.dest(path.js_out));
 });
+

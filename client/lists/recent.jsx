@@ -1,4 +1,6 @@
-class Recent extends React.Component {
+import Entry from '../entry/entry.js'
+
+export default class Recent extends React.Component {
     constructor () {
         super();
         this.state = {data:{}};

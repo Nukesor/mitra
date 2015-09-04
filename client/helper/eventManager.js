@@ -1,4 +1,4 @@
-class Eventmanager {
+export default class Eventmanager {
     constructor () {
         this.listener = {}
     }

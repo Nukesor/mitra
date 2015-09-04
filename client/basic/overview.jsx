@@ -1,7 +1,15 @@
-class Overview extends React.Component {
+import loginCheck from '../helper/loginCheck.js';
+
+import Header from '../basic/header.js';
+import Recent from '../lists/recent.js';
+import Month from '../lists/month.js';
+import Navbar from '../basic/navbar.js';
+import EntryAdder from '../entry/entryAdder.js';
+
+export default class Overview extends React.Component {
     constructor () {
         super();
-        window.mitra.helper.loginCheck();
+        loginCheck();
         this.navbarHandler = this.navbarHandler.bind(this);
         this.state = {view: 'recent', month: '', year: ''}
     }

@@ -1,4 +1,4 @@
-class Register extends React.Component {
+export default class Register extends React.Component {
     constructor () {
         super();
         this.handleChange.bind(this);
