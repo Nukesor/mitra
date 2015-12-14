@@ -13,7 +13,6 @@ class App extends React.Component {
     //    componentDidMount : function () {
     //        window.mitra.helper.loginCheck();
     //    }
-    //
     render () {
         return (
             <div className="mainContainer">
